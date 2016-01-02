@@ -68,17 +68,31 @@ Estimation of individual ancestry is important. Software and a reference panel a
 Estimation of an individual's ``genetic ancestry" is useful in a number of contexts. First, in the context of genetic association studies, 
 
 \section{Results}
-We use a supervised version of the ``admixture" model from \citet{Pritchard:2000zr}. Specifically, assume we have an individual of unknown ancestry (the ``test individual") and a panel of individuals with labeled ancestry who come from a total of $N$ populations (the ``reference panel"). We assume the individual and the reference panel have been genotyped at $S$ bi-allelic single nucleotide polymorphisms (SNPs). At each SNP, we arbitrarily define one allele as the ``reference" and the other as the ``alternate". Let $a_i$ be an indicator variable with value 1 if the test individual has the reference allele at position $i$ and zero otherwise (assume the test individual is haploid, such that there is only a single allele to evaluate). Let $c_{ij}$ be the count of a (arbitrarily-chosen) reference allele at locus $i$ in individuals labeled as coming from population $j$, and let $n_{ij}$ be total number of alleles sampled from population $j$ at the locus. Let $p_{ij}$ be the allele frequency of the reference allele at locus $i$ in population $j$, and $\vec p_i$ be the vector of the allele frequencies in all reference populations. Finally, let $q_j$ be the fraction of ancestry in the test individual from each of the reference populations, such that $\sum_j q_j = 1$. 
+We use a supervised version of the ``admixture" model from \citet{Pritchard:2000zr}. 
+Specifically, assume we have an individual of unknown ancestry (the ``test individual") and a panel of individuals with labeled ancestry who come from a total of $M$ populations (the ``reference panel"). 
+We assume the individual and the reference panel have been genotyped at $S$ bi-allelic single nucleotide polymorphisms (SNPs).
+ At each SNP, we arbitrarily define one allele as the ``reference" and the other as the ``alternate". 
+ 
+ Let $\vec a = {a_1, a_2, .., a_S}$ be a vector of indicator variables that each have value 1 if the test individual has the reference allele at position $i$ and zero otherwise (assume the test individual is haploid, such that there is only a single allele to evaluate). 
+Let $C$ be the matrix of counts of a (arbitrarily-chosen) reference allele at locus $i$ in individuals labeled as coming from population $j$ (such that $C$ has $S$ rows and $M$ columns), and let $N$ be the matrix of total number of alleles sampled from population $j$ at each locus. 
+Let $p_{ij}$ be the allele frequency of the reference allele at locus $i$ in population $j$, and $\vec p_i$ be the vector of the allele frequencies in all reference populations at locus $i$. 
+ Finally, let $\vec q$ be the vector containing the proportion of ancestry that the test individual has from each of the reference populations, such that $\sum_i q_i = 1$. 
 
-Now we can write down the likelihood of the data at a single SNP:
+Now we can write down the likelihood at a single SNP:
 
 \begin{equation}
-L(\vec p_i, \vec q | \vec c_i, \vec n_i, a_i) = a_i f_i \prod  \limits_{j = 1}^N {n_{ij} \choose c_{ij}} p_{ij}^{c_{ij}} (1-p_{ij})^{n_{ij}- c_{ij}} , 
+L(\vec p_i, \vec q | \vec c_i, \vec n_i, a_i) = a_i f_i \prod  \limits_{j = 1}^M {n_{ij} \choose c_{ij}} p_{ij}^{c_{ij}} (1-p_{ij})^{n_{ij}- c_{ij}} , 
 \end{equation}
-\noindent where $f_i = \sum \limits_{j = 1}^{N} p_{ij} q_j$.  
+\noindent where $f_i = \sum \limits_{j = 1}^{M} p_{ij} q_j$.  
+
+We treat all SNPs as independent, so the complete likelihood function is:
+
+\begin{equation}
+L(P, \vec q | C,  N, \vec a) = \prod \limits_{i = 1}^{S} L(\vec p_i, \vec q | \vec c_i, \vec n_i, a_i).
+\end{equation}
 
 \subsection{Estimation}
-We now describe our approach to getting the maximum likelihood estimates of $\vec p$ and $Q$. 
+We now describe our approach to getting the maximum likelihood estimates of $P$ and $\vec q$. 
 
 \section{Discussion}
 
