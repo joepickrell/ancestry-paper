@@ -1,0 +1,92 @@
+
+\documentclass[11pt,titlepage]{article} 
+\usepackage[square,sort&compress]{natbib}
+%\usepackage[round]{natbib} 
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{longtable}
+
+\usepackage{caption}
+\captionsetup{labelsep = none}
+\usepackage{graphicx,rotating}
+
+\usepackage{setspace}
+\usepackage[table]{xcolor}
+\definecolor{lightgray}{gray}{0.9}
+%\bibliographystyle{elsart-harv}
+
+%\bibliographystyle{JRSS}
+\bibliographystyle{genres}
+%\usepackage[margin=1in]{geometry}
+\newcommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\wt}[1]{\widetilde{#1}}
+\doublespacing
+\renewcommand{\rmdefault}{ptm} 
+\usepackage{mathptmx} 
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage[margin=1in]{geometry}
+\renewcommand{\baselinestretch}{1.05}    %or 1.4 maybe?
+%\setlength{\oddsidemargin}{0cm} \setlength{\textwidth}{6.5in}
+%\setlength{\topmargin}{0in} \setlength{\topmargin}{-.5in}
+
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcommand\encircle[1]{%
+  \tikz[baseline=(X.base)] 
+    \node (X) [draw, shape=circle, inner sep=0] {\strut #1};}
+%this version seems to work better for pdf (?)
+\setlength{\textheight}{9.5in}
+%%
+%% Select one of the two - the second gets rid of comments.
+%% Leave the blank lines in
+\def\comment#1{
+
+\smallskip\noindent{\it [{#1}]}
+
+\smallskip\noindent
+}
+%\def\comment#1{}
+
+
+\begin{document}
+\title{Efficient ancestry inference for personal genomics}
+\author{Pickrell, Gordon, Berisa, Erlich\\ \\
+\small $^1$ New York Genome Center, New York, NY, USA\\
+\small $^2$ Department of Biological Sciences, Columbia University, New York, NY, USA \\
+\small $^2$ Department of Computer Science, Columbia University, New York, NY, USA \\
+\small $^\dagger$ Correspondence to: \url{jkpickrell@nygenome.org}
+}
+\maketitle
+\begin{abstract}
+Estimation of individual ancestry is important. Software and a reference panel are available at \url{https://bitbucket.org/joepickrell/ancestry}
+\end{abstract}
+%\tableofcontents
+\clearpage
+\section{Introduction}
+Estimation of an individual's ``genetic ancestry" is useful in a number of contexts. First, in the context of genetic association studies, 
+
+\section{Results}
+We use a supervised version of the ``admixture" model from \citet{Pritchard:2000zr}. Specifically, assume we have an individual of unknown ancestry (the ``test individual") and a panel of individuals with labeled ancestry who come from a total of $N$ populations (the ``reference panel"). We assume the individual and the reference panel have been genotyped at $S$ bi-allelic single nucleotide polymorphisms (SNPs). At each SNP, we arbitrarily define one allele as the ``reference" and the other as the ``alternate". Let $a_i$ be an indicator variable with value 1 if the test individual has the reference allele at position $i$ and zero otherwise (assume the test individual is haploid, such that there is only a single allele to evaluate). Let $c_{ij}$ be the count of a (arbitrarily-chosen) reference allele at locus $i$ in individuals labeled as coming from population $j$, and let $n_{ij}$ be total number of alleles sampled from population $j$ at the locus. Let $p_{ij}$ be the allele frequency of the reference allele at locus $i$ in population $j$, and $\vec p_i$ be the vector of the allele frequencies in all reference populations. Finally, let $q_j$ be the fraction of ancestry in the test individual from each of the reference populations, such that $\sum_j q_j = 1$. 
+
+Now we can write down the likelihood of the data at a single SNP:
+
+\begin{equation}
+L(\vec p_i, \vec q | \vec c_i, \vec n_i, a_i) = a_i f_i \prod  \limits_{j = 1}^N {n_{ij} \choose c_{ij}} p_{ij}^{c_{ij}} (1-p_{ij})^{n_{ij}- c_{ij}} , 
+\end{equation}
+\noindent where $f_i = \sum \limits_{j = 1}^{N} p_{ij} q_j$.  
+
+\subsection{Estimation}
+We now describe our approach to getting the maximum likelihood estimates of $\vec p$ and $Q$. 
+
+\section{Discussion}
+
+\section{Methods}
+\bibliography{bib}
+\end{document}
+
+
+
+
+
