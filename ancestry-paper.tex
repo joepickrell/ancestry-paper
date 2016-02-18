@@ -60,12 +60,14 @@
 }
 \maketitle
 \begin{abstract}
-Estimation of individual ancestry is important. Software and a reference panel are available at \url{https://bitbucket.org/joepickrell/ancestry}
+We describe an implementation of the Pritchard-Stephens-Donnelly ``STRUCTURE" model that is designed for estimation of an individual's ancestry from single nucleotide polymorphism (SNP) data. In our implementation, we assume we have a reference panel of individuals of known ancestry, and then model a test individual (of unknown ancestry) as a mixture of these reference populations. We describe three applications. First, we applied the method to the 150,000 individuals genotyped in the UK Biobank to select individuals for inclusion in an association study; second, we applied the method to consumer genomics data from 15,000 participants DNA.Land; and finally we applied it to estimate the ancestry of XX individuals whose tissues were used in ENCODE/Roadmap Epigenomics projects. Software (released under a GPL license) and a reference panel are available at \url{https://bitbucket.org/joepickrell/ancestry}
 \end{abstract}
 %\tableofcontents
 \clearpage
 \section{Introduction}
-Estimation of an individual's ``genetic ancestry" is useful in a number of contexts. First, in the context of genetic association studies, 
+Estimation of an individual's ``genetic ancestry" is useful in a number of contexts. First, in the context of genetic association studies. 
+
+There are a large number of methods and/or software packages that can be used for ancestry inference (lots of citations...). Our initial goal was to identify a piece of software that could be used in ``production" (that is, with minimal failure rates and no need for manual intervention) on many SNP datasets as part of DNA.Land and related efforts. We thus primarily considered algorithms that have been proven to work in this context; i.e. those used by popular commercial ancestry testing companies. The company 23andMe attempts to perform ``local" ancestry inference using a custom method \cite{durand2014ancestry}, while AncestryDNA and Family Tree DNA perform ``global" ancestry inference using the software package ADMIXTURE \citep{Alexander:2009fk}, which is an implementation of a model first developed by \citet{Pritchard:2000zr}. Since we were primarily interested in estimating global ancestry, we focused on the latter. 
 
 \section{Results}
 We use a supervised version of the ``admixture" model from \citet{Pritchard:2000zr}. 
